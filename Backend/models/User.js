@@ -13,6 +13,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    role: {
+      type: String,
+      enum : ['Company', 'HR'],
+      required: true
+    },
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Company'
+    }
   },
   { timestamps: true },
 );
