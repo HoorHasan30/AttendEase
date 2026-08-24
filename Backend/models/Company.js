@@ -5,10 +5,6 @@ const companySchema = new mongoose.Schema(
         companyName: {
             type: String,
             required: true
-        },
-        hrEmployees: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
         }
     }, { timestamps: true }
 )
