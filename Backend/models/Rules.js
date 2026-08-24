@@ -7,11 +7,11 @@ const rulesSchema = new mongoose.Schema(
             ref: 'Company'
         },
         shiftStart: {
-            type: Date,
+            type: String,
             required: true,
         },
         shiftEnd: {
-            type: Date,
+            type: String,
             required: true
         },
         lateArraivalsAllowed: {
