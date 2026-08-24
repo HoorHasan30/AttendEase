@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 
 const companySchema = new mongoose.Schema(
     {
-        CompanyName: {
+        companyName: {
             type: String,
             required: true
         },
-        HrEmployees: {
+        hrEmployees: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         }
