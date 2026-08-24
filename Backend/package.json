@@ -21,7 +21,9 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.2",
     "morgan": "^1.10.1",
-    "react-router": "^7.11.0"
+    "multer": "^2.2.0",
+    "react-router": "^7.11.0",
+    "read-excel-file": "^9.3.10"
   },
   "devDependencies": {
     "jest": "^30.4.2",
