@@ -14,6 +14,10 @@ const EmpSchema = new mongoose.Schema(
         },
         overtime: {
             type: Number
+        },
+        notes: {
+            type: [String],
+            default: "No Notes"
         }
     },
     {timestamps: true}    

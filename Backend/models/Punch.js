@@ -17,6 +17,10 @@ const punchSchema = new mongoose.Schema(
         },
         clockOut: {
             type: String
+        },
+        calculated: {
+            type: Boolean,
+            default: false
         }
     }, { timestamps: true }
 )
