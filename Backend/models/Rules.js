@@ -40,7 +40,7 @@ const rulesSchema = new mongoose.Schema(
             type: [String],
             required: true,
         }
-    }
+    }, { timestamps: true }
 )
 
 const Rules = mongoose.model('Rules', rulesSchema)
