@@ -35,6 +35,10 @@ const rulesSchema = new mongoose.Schema(
             type: Boolean,
             required: true,
             default: true
+        },
+        workingDays: {
+            type: [String],
+            required: true,
         }
     }
 )
