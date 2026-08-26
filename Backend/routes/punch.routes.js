@@ -12,7 +12,7 @@ const upload = multer({
     }
 });
 
-router.post('/', upload.single('punchData'), punchController.parsePunchData)
+router.post('/', upload.single('punchData'), verifyToken, isHr, punchController.parsePunchData)
 router.post('/calculate', verifyToken, isHr, punchController.calculateData)
 
 module.exports = router;
