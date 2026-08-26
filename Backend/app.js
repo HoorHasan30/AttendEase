@@ -10,6 +10,7 @@ const cors = require('cors')
 const authRoutes = require('./routes/auth.routes')
 const rulesRoutes = require('./routes/rules.routes')
 const punchRoutes = require('./routes/punch.routes')
+const empRecordsRoutes = require('./routes/empRecord.routes')
 
 
 // Middleware
@@ -27,7 +28,7 @@ app.use(morgan('dev'))
 app.use('/auth', authRoutes)
 app.use('/rules', rulesRoutes)
 app.use('/punches', punchRoutes)
-
+app.use('/records', empRecordsRoutes)
 
 
 module.exports = app
