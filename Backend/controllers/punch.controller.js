@@ -119,6 +119,7 @@ async function calculateData(req, res) {
                 if (!isWorkingDay) {
                     // no calculation, but mark it as calculated
                     calculatedPunchIds.push(p._id)
+                    return // to stop the rest of calculations
                 }
 
                 // Rule 2: Check for missed Punches
