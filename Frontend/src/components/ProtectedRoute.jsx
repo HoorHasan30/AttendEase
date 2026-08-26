@@ -11,7 +11,6 @@ function ProtectedRoute({ children }) {
         return <Navigate to="/sign-in" />;
     }
 
-
     return children;
 }
 
