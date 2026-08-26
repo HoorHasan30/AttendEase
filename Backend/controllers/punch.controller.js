@@ -4,38 +4,37 @@ const { readSheet } = require('read-excel-file/node')
 const Punch = require('../models/Punch')
 const Rule = require('../models/Rules')
 const EmployeeRecord = require('../models/EmployeeRecord')
+const XLSX = require('xlsx')
+
 
 async function parsePunchData(req, res) {
     try {
-
-        const { punchFile } = req.File
-
-        if (!punchFile) {
-            return res.status(400).json({ message: "No file uploaded" });
+        if (!req.file) {
+            return res.status(400).json({
+                message: "File is required"
+            });
         }
 
-        console.log(punchFile)
+        const workbook = XLSX.read(req.file.buffer);
 
-        const punchSchema = {
-            'Employee ID': { prop: 'employeeId', type: String },
-            'Date': { prop: 'date', type: Date },
-            'In': { prop: 'clockIn', type: String },
-            'Out': { prop: 'clockOut', type: String }
-        }
+        const firstSheetName = workbook.SheetNames[0];
 
-        const { rows, errors } = await readXlsxFile(punchFile, { schema: punchSchema });
+        const worksheet = workbook.Sheets[firstSheetName];
 
-        if (errors.length > 0) {
-            return res.status(400).json({ message: "Excel parsing errors", errors });
-        }
+        const rows = XLSX.utils.sheet_to_json(worksheet);
 
-        // converting to objects
-        const createdObjects = rows.map(r => ({
-            ...r,
-            company: req.user.company
-        }))
+        const normalizedData = rows.map((card) => {
 
-        const createdRecords = await Punch.insertMany(createdObjects)
+            // convert date formate
+            return {
+                employeeId: card['Employee ID'],
+                date: formatDate(card['Date']),
+                clockIn: card['In'],
+                clockOut: card['Out'],
+            }
+        })
+
+        const createdRecords = await Punch.insertMany(normalizedData)
 
         res.status(200).json(createdRecords)
     }
@@ -46,6 +45,29 @@ async function parsePunchData(req, res) {
 
         res.status(500).json({ message: err.message })
     }
+}
+
+// function re-format the date
+function formatDate(oldDate) {
+
+    if (!oldDate) {
+        return null
+    }
+
+    // if already formated
+    if (oldDate instanceof Date) {
+        return value.toISOString().split('T')[0];
+    }
+
+    //if (DD/MM/YYYY)
+    if (typeof oldDate === 'string') {
+        const parts = oldDate.split('/');
+        if (parts.length === 3) {
+            const [dd, mm, yyyy] = parts;
+            return `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
+        }
+    }
+
 }
 
 async function calculateData(req, res) {
@@ -264,8 +286,6 @@ function timeToMinutes(timeString) {
     const [hours, minutes] = timeString.split(':').map(Number);
     return hours * 60 + minutes;
 }
-
-
 
 module.exports = {
     parsePunchData,

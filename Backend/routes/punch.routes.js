@@ -4,7 +4,15 @@ const punchController = require('../controllers/punch.controller')
 const verifyToken = require("../middleware/verifyToken");
 const isHr = require('../middleware/isHR')
 
-router.post('/', verifyToken, isHr, punchController.parsePunchData)
+const multer = require('multer')
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    }
+});
+
+router.post('/', upload.single('punchData'), punchController.parsePunchData)
 router.post('/calculate', verifyToken, isHr, punchController.calculateData)
 
 module.exports = router;
