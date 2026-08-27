@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 $primary:   #1c3144;
 $secondary: #686867;
 $success:   #4f7a63;
@@ -10,5 +12,9 @@ $body-bg:   #fefcf6;
 
 $blue:   #1c3144;
 $gray-600: #686867;
+
+
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-base: $font-family-sans-serif;
 
 @import "bootstrap/scss/bootstrap";

@@ -80,15 +80,16 @@ function SigninPage() {
   return (
     <>
       {/* <h1 className="text-center">Sign Up</h1> */}
-      <Image src="src/assets/Logo.png" className="col-2 d-block mx-auto" style={{ margin: "0" }} rounded />
 
       {error && <div className="alert alert-danger">{error}</div>}
 
-      <div className="d-flex justify-content-center align-items-center flex-column vh-95">
+      <div className="d-flex justify-content-center align-items-center flex-column vh-100">
 
         <div className="border rounded p-4" style={{ maxWidth: "40rem", width: "100%" }}>
           <Form onSubmit={handleSubmit}>
-            <h3>Sign In</h3>
+            <h3 className='d-flex flex-column justify-content-center align-items-center'> 
+              <Image src="src/assets/Logo.png" className="w-25 d-block mx-auto" style={{ margin: "0" }} rounded /> 
+              Sign In</h3>
 
             <FloatingLabel controlId="floatingUsername" label="Username" className="mb-3">
               <Form.Control

@@ -142,7 +142,7 @@ function SignupPage() {
     <>
       {/* <h1 className="text-center">Sign Up</h1> */}
 
-      <Image src="src/assets/Logo.png" className="col-2 d-block mx-auto" style={{ margin: "0" }} rounded />
+      
 
       {error && <div className="alert alert-danger">{error}</div>}
 
@@ -153,7 +153,9 @@ function SignupPage() {
             <Form onSubmit={handleNext}>
               <ProgressBar now={50} className="mb-4" style={{ height: "0.5rem" }} />
 
-              <h3>Create Company Account</h3>
+              <h3 className='d-flex flex-column justify-content-center align-items-center'> 
+                <Image src="src/assets/Logo.png" className="w-25 d-block mx-auto" style={{ margin: "0" }} rounded /> 
+                Create Company Account</h3>
 
               <FloatingLabel controlId="floatingCompanyName" label="Company Name" className="mb-3">
                 <Form.Control
@@ -213,7 +215,10 @@ function SignupPage() {
             <Form onSubmit={handleSubmit}>
               <ProgressBar now={100} className="mb-4" style={{ height: "0.5rem" }} />
 
-              <h3>Set Attendance Rules</h3>
+              <h3 className='d-flex flex-column justify-content-center align-items-center'> 
+                <Image src="src/assets/Logo.png" className="w-25 d-block mx-auto" style={{ margin: "0" }} rounded /> 
+                Set Attendance Rules</h3>
+                
               <Form.Text className="d-block mb-2">Working Hours - Use 24h Format Only</Form.Text>
               <Row>
                 <Col>
