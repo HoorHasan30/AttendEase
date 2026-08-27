@@ -46,17 +46,17 @@ function App() {
 
         {/* Compnay Pages */}
         <Route element={<CompanyNavBar />}>
-          <Route path='/hr-list' element={<ProtectedRoute><HrListPage /></ProtectedRoute>} />
-          <Route path='/company-rules' element={<ProtectedRoute><ShowRulesPage /></ProtectedRoute>} />
-          <Route path='/company-rules/edit' element={<ProtectedRoute><EditRulesPage /></ProtectedRoute>} />
+          <Route path='/hr-list' element={<ProtectedRoute role="Compnay"><HrListPage /></ProtectedRoute>} />
+          <Route path='/company-rules' element={<ProtectedRoute role="Compnay"><ShowRulesPage /></ProtectedRoute>} />
+          <Route path='/company-rules/edit' element={<ProtectedRoute role="Compnay"><EditRulesPage /></ProtectedRoute>} />
         </Route>
 
         {/* HR Pages */}
         <Route element={<HrNavBar />}>
-          <Route path='/dashboard' element={<ProtectedRoute></ProtectedRoute>} />
-          <Route path='/punches' element={<ProtectedRoute><UploadPunchPage /></ProtectedRoute>} />
-          <Route path='/employees-records' element={<ProtectedRoute><EmployeeRecordsPage /></ProtectedRoute>} />
-          <Route path='/rules' element={<ProtectedRoute><ShowRulesPage /></ProtectedRoute>} />
+          <Route path='/dashboard' element={<ProtectedRoute role="HR"><DashboardPage/></ProtectedRoute>} />
+          <Route path='/punches' element={<ProtectedRoute role="HR"><UploadPunchPage /></ProtectedRoute>} />
+          <Route path='/employees-records' element={<ProtectedRoute role="HR"><EmployeeRecordsPage /></ProtectedRoute>} />
+          <Route path='/rules' element={<ProtectedRoute role="HR"><ShowRulesPage /></ProtectedRoute>} />
         </Route>
       </Routes >
 

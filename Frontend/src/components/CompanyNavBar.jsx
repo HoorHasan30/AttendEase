@@ -3,18 +3,18 @@ import { useAuth } from '../context/AuthContext'
 
 function CompanyNavBar() {
 
-    const { logout, user} = useAuth()
+  const { logout, user } = useAuth()
 
   return (
     <nav>
-      {user.role == "Company"
-      ? 
-      (<>
-      <Link to='/hr-list'>HR List</Link>
-      <Link to='/company-rules'>Company Rules</Link>
+      {user?.role == "Company" && (
+        <>
+          <Link to='/hr-list'>HR List</Link>
+          <Link to='/company-rules'>Company Rules</Link>
 
-      <button onClick={logout}>Sign Out</button>
-      </>) : "" }
+          <button onClick={logout}>Sign Out</button>
+        </>
+      )}
     </nav>
   )
 }

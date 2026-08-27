@@ -1,14 +1,23 @@
 import { Navigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import { Flex, Spin } from 'antd';
 
 function ProtectedRoute({ children }) {
     const {loading, user} = useAuth()
 
 
-    if(loading) return <p>Loading...</p>
+    if(loading) {
+        return <Flex align="center" gap="medium">
+            <Spin indicator={<LoadingOutlined style={{color: '#1c3144' }} spin />} size="large" />
+        </Flex>
+    }
 
     if (!user) {
         return <Navigate to="/sign-in" />;
+    }
+
+    if(role && user.role != role){
+        return <Navigate to="/" />;
     }
 
     return children;
