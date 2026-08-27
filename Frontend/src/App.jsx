@@ -41,7 +41,7 @@ function App() {
         <Route element={<HomepageNavBar />}>
           <Route path="/" element={<Homepage />} />
           <Route path='/sign-up-company' element={<SignupPage />} />
-          <Route path='/sign-in' element={<SignupPage />} />
+          <Route path='/sign-in' element={<SignInPage />} />
         </Route>
 
         {/* Compnay Pages */}

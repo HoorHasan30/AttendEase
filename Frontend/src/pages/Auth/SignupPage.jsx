@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image'
 
 import { registerCompany } from '../../services/authService'
 import { setRules } from '../../services/rulesService';
@@ -139,11 +140,13 @@ function SignupPage() {
 
   return (
     <>
-      <h1>Sign Up</h1>
+      {/* <h1 className="text-center">Sign Up</h1> */}
+
+      <Image src="src/assets/Logo.png" className="col-2 d-block mx-auto" style={{ margin: "0" }} rounded />
 
       {error && <div className="alert alert-danger">{error}</div>}
 
-      <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="d-flex justify-content-center align-items-center vh-95">
         <div className="border rounded p-4" style={{ maxWidth: "40rem", width: "100%" }}>
 
           {step === 1 && (
