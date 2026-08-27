@@ -25,7 +25,23 @@ async function registerCompany(req, res) {
 
     const { _id, createdAt, updatedAt } = user;
 
-    res.status(201).json({ username: user.username, _id, createdAt, updatedAt });
+    // Construct the payload
+    const payload = { username: user.username, _id: user._id, role: user.role, company: user.company };
+
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    return res.status(200).json({
+      username: user.username, _id, createdAt, updatedAt,
+      accessToken,
+      user: {
+        _id: user._id,
+        username: user.username,
+        role: user.role,
+        company: user.company
+      },
+    });
 
   }
   catch (err) {
@@ -125,7 +141,12 @@ async function signIn(req, res) {
 
     return res.status(200).json({
       accessToken,
-      payload
+      user: {
+        _id: user._id,
+        username: user.username,
+        role: user.role,
+        company: user.company
+      },
     });
   }
   catch (err) {

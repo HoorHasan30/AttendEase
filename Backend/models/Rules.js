@@ -14,15 +14,15 @@ const rulesSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        lateArraivalsAllowed: {
+        lateArrivalsAllowed: {
             type: Number,
             required: true
         },
-        lateArraivalsDuration: {
+        lateArrivalDuration: {
             type: Number,
             required: true
         },
-        punchesExcused: {
+        missedPunches: {
             type: Number,
             required: true
         },
@@ -34,7 +34,7 @@ const rulesSchema = new mongoose.Schema(
         countEarlyLeave: {
             type: Boolean,
             required: true,
-            default: true
+            default: false
         },
         workingDays: {
             type: [String],

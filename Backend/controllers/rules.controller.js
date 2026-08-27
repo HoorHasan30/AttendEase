@@ -15,18 +15,19 @@ async function getCompanyRules(req, res) {
 
 async function setRules(req, res) {
     try {
-        const { shiftStart, shiftEnd, lateArraivalsAllowed, lateArraivalsDuration,
-            punchesExcused, countEarlyArraival, countEarlyLeave } = req.body
+        const { shiftStart, shiftEnd, lateArrivalsAllowed, lateArrivalDuration,
+            missedPunches, countEarlyArraival, countEarlyLeave, workingDays } = req.body
 
         const createdRules = await Rules.create({
             company: req.user.company,
             shiftStart,
             shiftEnd,
-            lateArraivalsAllowed,
-            lateArraivalsDuration,
-            punchesExcused,
+            lateArrivalsAllowed,
+            lateArrivalDuration,
+            missedPunches,
             countEarlyArraival,
-            countEarlyLeave
+            countEarlyLeave,
+            workingDays
         })
 
         res.status(201).json(createdRules)
@@ -44,16 +45,17 @@ async function updateRules(req, res) {
     try {
         const foundRules = await Rules.findOne({ company: req.user.company })
 
-        const { shiftStart, shiftEnd, lateArraivalsAllowed, lateArraivalsDuration,
-            punchesExcused, countEarlyArraival, countEarlyLeave } = req.body
+        const { shiftStart, shiftEnd, lateArrivalsAllowed, lateArrivalDuration,
+            missedPunches, countEarlyArraival, countEarlyLeave } = req.body
 
         foundRules.shiftStart = shiftStart
         foundRules.shiftEnd = shiftEnd
-        foundRules.lateArraivalsAllowed = lateArraivalsAllowed
-        foundRules.lateArraivalsDuration = lateArraivalsDuration
-        foundRules.punchesExcused = punchesExcused
+        foundRules.lateArrivalsAllowed = lateArrivalsAllowed
+        foundRules.lateArrivalDuration = lateArrivalDuration
+        foundRules.missedPunches = missedPunches
         foundRules.countEarlyArraival = countEarlyArraival
         foundRules.countEarlyLeave = countEarlyLeave
+        foundRules.workingDays = workingDays
         
         await foundRules.save()
 

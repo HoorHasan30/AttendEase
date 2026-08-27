@@ -82,8 +82,8 @@ async function calculateData(req, res) {
 
         const {
             shiftStart, shiftEnd,
-            lateArraivalsAllowed, lateArraivalsDuration,
-            punchesExcused,
+            lateArrivalsAllowed, lateArrivalDuration,
+            missedPunches,
             countEarlyArraival, countEarlyLeave,
             workingDays
         } = rules
@@ -148,8 +148,8 @@ async function calculateData(req, res) {
                 if (!p.clockIn || !p.clockOut) {
                     missingPunchesCount++
 
-                    // check if count exceeded the punchesExcused
-                    if (missingPunchesCount > punchesExcused) {
+                    // check if count exceeded the missedPunches
+                    if (missingPunchesCount > missedPunches) {
                         // add note
                         notes.push('Missing Punch - Unexcused')
 
@@ -189,11 +189,11 @@ async function calculateData(req, res) {
                     const lateMinutes = clockInMin - shiftStartMin
 
                     // Compare to comany late arrival duration
-                    if (lateMinutes <= lateArraivalsDuration) {  // late within company excused duration
+                    if (lateMinutes <= lateArrivalDuration) {  // late within company excused duration
                         lateCount++
 
                         // Rule 5: Check for late arrivals allowed
-                        if (lateCount > lateArraivalsAllowed) {
+                        if (lateCount > lateArrivalsAllowed) {
                             // add note
                             notes.push('Late Arrival - Unexcused')
 
