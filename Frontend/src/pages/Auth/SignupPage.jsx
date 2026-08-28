@@ -43,14 +43,14 @@ function SignupPage() {
     lateArrivalsAllowed: "",
     lateArrivalDuration: "",
     missedPunches: "",
-    earlyArrivalOvertime: false,
-    earlyLeaveShortage: false,
+    countEarlyArraival: "",
+    countEarlyLeave: "",
     workingDays: []
   })
 
   const { shiftStart, shiftEnd,
     lateArrivalsAllowed, lateArrivalDuration, missedPunches,
-    earlyArrivalOvertime, earlyLeaveShortage, workingDays } = rulesFormData
+    countEarlyArraival, countEarlyLeave, workingDays } = rulesFormData
 
   function handleUserFormChange(event) {
     setError("");
@@ -253,10 +253,10 @@ function SignupPage() {
                 <Col>
                   <Form.Check
                     type="checkbox"
-                    id="earlyArrivalOvertime"
-                    name="earlyArrivalOvertime"
+                    id="countEarlyArraival"
+                    name="countEarlyArraival"
                     label="Count Early Arrival as Overtime"
-                    checked={earlyArrivalOvertime}
+                    checked={countEarlyArraival}
                     onChange={handleRulesFormChange}
                     className="mb-2"
                   />
@@ -264,10 +264,10 @@ function SignupPage() {
                 <Col>
                   <Form.Check
                     type="checkbox"
-                    id="earlyLeaveShortage"
-                    name="earlyLeaveShortage"
+                    id="countEarlyLeave"
+                    name="countEarlyLeave"
                     label="Count Early Leave as Shortage"
-                    checked={earlyLeaveShortage}
+                    checked={countEarlyLeave}
                     onChange={handleRulesFormChange}
                     className="mb-3"
                   />
