@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import { useAuth } from '../context/AuthContext'
+import { Outlet } from "react-router";
 
 
 import Container from 'react-bootstrap/Container'

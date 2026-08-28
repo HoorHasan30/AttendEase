@@ -20,7 +20,6 @@ import SignInPage from "./pages/Auth/SigninPage";
 
 import HrListPage from "./pages/Company/HrListPage"
 import ShowRulesPage from "./pages/Rules/ShowRulesPage"
-import EditRulesPage from "./pages/Rules/EditRulesPage"
 
 import DashboardPage from "./pages/Records/DashboardPage"
 import UploadPunchPage from "./pages/Punch/UploadPunchesPage"
@@ -44,11 +43,11 @@ function App() {
           <Route path='/sign-in' element={<SignInPage />} />
         </Route>
 
-        {/* Compnay Pages */}
+        {/* Company Pages */}
         <Route element={<CompanyNavBar />}>
-          <Route path='/hr-list' element={<ProtectedRoute role="Compnay"><HrListPage /></ProtectedRoute>} />
-          <Route path='/company-rules' element={<ProtectedRoute role="Compnay"><ShowRulesPage /></ProtectedRoute>} />
-          <Route path='/company-rules/edit' element={<ProtectedRoute role="Compnay"><EditRulesPage /></ProtectedRoute>} />
+          <Route path='/hr-list' element={<ProtectedRoute role="Company"><HrListPage /></ProtectedRoute>} />
+          <Route path='/company-rules' element={<ProtectedRoute role="Company"><ShowRulesPage /></ProtectedRoute>} />
+          {/* <Route path='/company-rules/edit' element={<ProtectedRoute role="Compnay"><EditRulesPage /></ProtectedRoute>} /> */}
         </Route>
 
         {/* HR Pages */}

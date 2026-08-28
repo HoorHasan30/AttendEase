@@ -1,6 +1,7 @@
 // import { Link } from 'react-router'
 import { NavLink } from 'react-router'
 import { useAuth } from '../context/AuthContext'
+import { Outlet } from "react-router";
 
 import Nav from 'react-bootstrap/Nav'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -48,6 +49,9 @@ function CompanyNavBar() {
 
         </div>
       )}
+
+      <Outlet/>
+
     </>
   )
 }
