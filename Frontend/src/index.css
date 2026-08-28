@@ -1,7 +1,6 @@
 .error{
     color: var(--bs-red)
 }
-/* sidebar.css */
 
 .sidebar {
   position: fixed;
@@ -82,7 +81,6 @@
   color: var(--bs-light);
 }
 
-/* Below sm breakpoint: icon-only rail */
 @media (max-width: 575.98px) {
   .sidebar {
     width: 4rem;
@@ -98,5 +96,18 @@
 
   .sidebar-logo {
     max-width: 2.5rem;
+  }
+}
+
+.main-content {
+  margin-left: 15%;
+  max-width: calc(100% - 17.5rem);
+  padding: 1.5rem;
+}
+
+@media (max-width: 575.98px) {
+  .main-content {
+    margin-left: 4rem;
+    max-width: calc(100% - 4rem);
   }
 }

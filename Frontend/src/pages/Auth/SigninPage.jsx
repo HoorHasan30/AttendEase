@@ -115,7 +115,7 @@ function SigninPage() {
 
             <div className="d-flex justify-content-center gap-2 mt-3">
               <Button type="submit" variant="primary" size="sm" active="true" className="w-25" disabled={submitting}>
-                {submitting ? "Submitting..." : "Sign In"}
+                {submitting ? "Signing In..." : "Sign In"}
               </Button>
             </div>
           </Form>
