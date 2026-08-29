@@ -1,3 +1,13 @@
+.form-control,
+.form-control:focus,
+.form-control:disabled,
+.form-control[readonly],
+input,
+select,
+textarea {
+  background-color: var(--bs-body-bg) !important;
+}
+
 .error{
     color: var(--bs-red)
 }
