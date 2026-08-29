@@ -183,10 +183,30 @@ async function verifyUser(req, res) {
   }
 }
 
+async function getHrList(req, res){
+  try {
+    const hrList = await User.find({ company: req.user.company, role: 'HR'})
+    
+    if(!hrList){
+      return res.status(404).json({ message: "There is no HR registered in this company" })
+    }
+
+    res.status(200).json(hrList)
+  }
+  catch (err) {
+    console.error(err);
+
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+}
+
 module.exports = {
   registerCompany,
   registerHr,
   // signUp,
   signIn,
   verifyUser,
+  getHrList
 };

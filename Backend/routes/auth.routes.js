@@ -8,5 +8,6 @@ router.post("/register-company", authController.registerCompany);
 router.post("/register-hr", verifyToken, isCompany, authController.registerHr)
 router.post("/sign-in",  authController.signIn);
 router.get("/me", verifyToken, authController.verifyUser);
+router.get("/hr-list", verifyToken, isCompany, authController.getHrList)
 
 module.exports = router;
