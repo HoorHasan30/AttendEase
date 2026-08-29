@@ -246,9 +246,9 @@ async function calculateData(req, res) {
                 // set the record
                 recordsToInsert.push({
                     punchRecord: p._id,
-                    workedHours,
-                    shortage,
-                    overtime,
+                    workedHours: round2(workedHours),
+                    shortage: round2(shortage),
+                    overtime: round2(overtime),
                     notes
                 })
 
@@ -286,6 +286,10 @@ async function calculateData(req, res) {
 function timeToMinutes(timeString) {
     const [hours, minutes] = timeString.split(':').map(Number);
     return hours * 60 + minutes;
+}
+
+function round2(value) {
+    return Math.round(value * 100) / 100;
 }
 
 module.exports = {
