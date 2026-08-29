@@ -56,7 +56,7 @@ function HrListPage() {
     headRow: {
       style: {
         backgroundColor: 'var(--bs-primary)',
-        color: 'var(--bs-light)',
+        color: 'var(--bs-body-bg)',
         borderBottom: '1px solid var(--bs-info)',
       },
     },
@@ -65,7 +65,7 @@ function HrListPage() {
         backgroundColor: 'none',
       },
       highlightOnHoverStyle: {
-        backgroundColor: '#f1f5f9',
+        backgroundColor: 'var(--bs-info)',
       },
     },
   };
