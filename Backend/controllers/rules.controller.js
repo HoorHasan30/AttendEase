@@ -46,7 +46,7 @@ async function updateRules(req, res) {
         const foundRules = await Rules.findOne({ company: req.user.company })
 
         const { shiftStart, shiftEnd, lateArrivalsAllowed, lateArrivalDuration,
-            missedPunches, countEarlyArraival, countEarlyLeave } = req.body
+            missedPunches, countEarlyArraival, countEarlyLeave, workingDays } = req.body
 
         foundRules.shiftStart = shiftStart
         foundRules.shiftEnd = shiftEnd
