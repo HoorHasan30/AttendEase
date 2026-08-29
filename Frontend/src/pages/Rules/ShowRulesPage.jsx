@@ -5,8 +5,10 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 
-import { getRules } from '../../services/rulesService'
+import { getRules, updatesRules } from '../../services/rulesService'
+import { useAuth } from '../../context/AuthContext'
 
 import '../../index.css'
 
@@ -15,6 +17,9 @@ const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", 
 function ShowRulesPage() {
 
   const [error, setError] = useState("");
+  const { user } = useAuth()
+  const [isEditing, setIsEditing] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   const [formData, setFormData] = useState({
     shiftStart: "",
@@ -47,6 +52,53 @@ function ShowRulesPage() {
     }
   }
 
+  function handleChange(event) {
+    const { name, type, value, checked } = event.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  }
+
+  function handleDayToggle(day) {
+    if (!isEditing) return
+    setFormData((prev) => ({
+      ...prev,
+      workingDays: prev.workingDays.includes(day) ? prev.workingDays.filter(d => d !== day) : [...prev.workingDays, day]
+    }))
+  }
+
+  function handleEditClick(event) {
+    event.preventDefault()
+    setError("")
+    setIsEditing(true)
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    if (!isEditing) {
+      return
+    }
+
+    try {
+      setSubmitting(true)
+      setError("")
+
+      const updatedRules = await updatesRules({...formData})
+      loadCompanyRules()
+
+      setIsEditing(false)
+    }
+    catch (err) {
+      setError(err?.response?.data?.message);
+    }
+    finally {
+      setSubmitting(false)
+    }
+  };
+
   useEffect(
     () => {
       document.title = "Company Rules"
@@ -54,6 +106,9 @@ function ShowRulesPage() {
     },
     []
   )
+
+  const canEdit = user?.role === 'Company'
+  const fieldsDisabled = !isEditing
 
   return (
     <main className='main-content'>
@@ -64,7 +119,7 @@ function ShowRulesPage() {
       <div className="d-flex justify-content-center align-items-center vh-95">
         <div className="border rounded p-4" style={{ maxWidth: "40rem", width: "100%" }}>
 
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Text className="d-block mb-2">Working Hours - 24h Format</Form.Text>
             <Row>
               <Col>
@@ -73,9 +128,10 @@ function ShowRulesPage() {
                     type="text"
                     name="shiftStart"
                     value={shiftStart}
-                    disabled
-                    readOnly
-                    plaintext
+                    onChange={handleChange}
+                    disabled={fieldsDisabled}
+                    plaintext={fieldsDisabled}
+                    readOnly={fieldsDisabled}
                   />
                 </FloatingLabel>
               </Col>
@@ -85,9 +141,10 @@ function ShowRulesPage() {
                     type="text"
                     name="shiftEnd"
                     value={shiftEnd}
-                    disabled
-                    readOnly
-                    plaintext
+                    onChange={handleChange}
+                    disabled={fieldsDisabled}
+                    plaintext={fieldsDisabled}
+                    readOnly={fieldsDisabled}
                   />
                 </FloatingLabel>
               </Col>
@@ -102,8 +159,8 @@ function ShowRulesPage() {
                   name="countEarlyArraival"
                   label="Count Early Arrival as Overtime"
                   checked={countEarlyArraival}
-                  disabled
-                  readOnly
+                  onChange={handleChange}
+                  disabled={fieldsDisabled}
                   className="mb-2"
                 />
               </Col>
@@ -114,8 +171,8 @@ function ShowRulesPage() {
                   name="countEarlyLeave"
                   label="Count Early Leave as Shortage"
                   checked={countEarlyLeave}
-                  disabled
-                  readOnly
+                  onChange={handleChange}
+                  disabled={fieldsDisabled}
                   className="mb-3"
                 />
               </Col>
@@ -129,9 +186,11 @@ function ShowRulesPage() {
                     type="number"
                     name="lateArrivalsAllowed"
                     value={lateArrivalsAllowed}
-                    disabled
-                    readOnly
-                    plaintext
+                    onChange={handleChange}
+                    min={0}
+                    disabled={fieldsDisabled}
+                    plaintext={fieldsDisabled}
+                    readOnly={fieldsDisabled}
                   />
                 </FloatingLabel>
               </Col>
@@ -141,9 +200,11 @@ function ShowRulesPage() {
                     type="number"
                     name="lateArrivalDuration"
                     value={lateArrivalDuration}
-                    disabled
-                    readOnly
-                    plaintext
+                    onChange={handleChange}
+                    min={0}
+                    disabled={fieldsDisabled}
+                    plaintext={fieldsDisabled}
+                    readOnly={fieldsDisabled}
                   />
                 </FloatingLabel>
               </Col>
@@ -155,9 +216,11 @@ function ShowRulesPage() {
                 type="number"
                 name="missedPunches"
                 value={missedPunches}
-                disabled
-                readOnly
-                plaintext
+                onChange={handleChange}
+                min={0}
+                disabled={fieldsDisabled}
+                plaintext={fieldsDisabled}
+                readOnly={fieldsDisabled}
               />
             </FloatingLabel>
 
@@ -171,11 +234,24 @@ function ShowRulesPage() {
                   label={day}
                   inline
                   checked={workingDays.includes(day)}
-                  disabled
-                  readOnly
+                  onChange={() => handleDayToggle(day)}
+                  disabled={fieldsDisabled}
                 />
               ))}
             </div>
+
+            {canEdit && (
+                <div className="d-flex justify-content-center gap-2 mt-3">
+                  {!isEditing ? 
+                  (
+                    <Button type="button" variant="primary" size="sm" className="w-50" onClick={handleEditClick} >Edit</Button>
+                  ) : 
+                  (
+                    <Button type="submit" variant="primary" size="sm" className="w-50" disabled={submitting} >{submitting ? "Saving..." : "Save"}</Button>
+                  )
+                  }
+                </div>
+            )}
           </Form>
         </div>
       </div>
