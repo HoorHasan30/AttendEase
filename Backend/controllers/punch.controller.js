@@ -31,6 +31,7 @@ async function parsePunchData(req, res) {
                 date: formatDate(card['Date']),
                 clockIn: card['In'],
                 clockOut: card['Out'],
+                company: req.user.company
             }
         })
 
