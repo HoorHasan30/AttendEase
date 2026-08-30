@@ -35,7 +35,7 @@ function HrNavBar() {
 
                 <Nav.Link
                   as={NavLink}
-                  to="/punches"
+                  to="/upload-attendance"
                   className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
                 >
                   <i className="bi bi-clock-history" />
