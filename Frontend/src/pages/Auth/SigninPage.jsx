@@ -78,7 +78,7 @@ function SigninPage() {
   )
 
   return (
-    <>
+    <div className='mt-1'>
       {/* <h1 className="text-center">Sign Up</h1> */}
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -121,7 +121,7 @@ function SigninPage() {
           </Form>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

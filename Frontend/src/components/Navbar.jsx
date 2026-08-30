@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <>
       {!user && (
-        <BsNavbar expand="lg" className="bg-primary mb-3" data-bs-theme="dark">
+        <BsNavbar expand="lg" className="bg-primary" data-bs-theme="dark">
           <Container fluid>
             <BsNavbar.Brand as={Link} to="/">AttendEase</BsNavbar.Brand>
             <BsNavbar.Toggle aria-controls="basic-navbar-nav" />

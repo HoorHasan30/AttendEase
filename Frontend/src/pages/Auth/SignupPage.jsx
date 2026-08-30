@@ -139,7 +139,7 @@ function SignupPage() {
   )
 
   return (
-    <>
+    <div className='mt-4 mb-3'>
       {/* <h1 className="text-center">Sign Up</h1> */}
 
       
@@ -342,7 +342,7 @@ function SignupPage() {
           )}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
