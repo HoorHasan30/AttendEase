@@ -17,6 +17,7 @@ function HrListPage() {
 
   const [error, setError] = useState("")
   const [submitting, setSubmitting] = useState(false)
+  const [succcess, setSuccess] = useState(false)
 
   const [formData, setFormData] = useState({
     username: "",
@@ -36,8 +37,8 @@ function HrListPage() {
       selector: row => row.role
     },
     {
-      name: "Created At",
-      selector: row => row.createdAt,
+      name: "Created On",
+      selector: row => row.createdAt.split("T")[0],
       sortable: true
     }
   ]
@@ -109,10 +110,13 @@ function HrListPage() {
     try {
       setSubmitting(true)
       setError("")
+      setSuccess(false)
 
       const newHr = await registerHr(formData)
       setFormData({ username: "", password: "" })
       await loadList()
+
+      setSuccess(true)
     }
     catch (err) {
       setError(err?.response?.data?.message);
@@ -130,9 +134,17 @@ function HrListPage() {
     []
   )
 
+  useEffect(() => {
+    if (succcess) {
+      const timer = setTimeout(() => setSuccess(false), 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [succcess])
+
   return (
     <main className='main-content'>
       {error && <div className="alert alert-danger">{error}</div>}
+      {succcess && <div className="alert alert-success">New HR Added Successfully!</div>}
 
       <h1>HR List</h1>
 

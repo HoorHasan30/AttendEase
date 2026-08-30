@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
-import { getRules, updatesRules } from '../../services/rulesService'
+import { getRules, updateRules } from '../../services/rulesService'
 import { useAuth } from '../../context/AuthContext'
 
 import '../../index.css'
@@ -20,6 +20,7 @@ function ShowRulesPage() {
   const { user } = useAuth()
   const [isEditing, setIsEditing] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [succcess, setSuccess] = useState(false)
 
   const [formData, setFormData] = useState({
     shiftStart: "",
@@ -85,9 +86,11 @@ function ShowRulesPage() {
     try {
       setSubmitting(true)
       setError("")
+      setSuccess(false)
 
-      const updatedRules = await updatesRules({...formData})
-      loadCompanyRules()
+      const updatedRules = await updateRules({ ...formData })
+      await loadCompanyRules()
+      setSuccess(true)
 
       setIsEditing(false)
     }
@@ -107,12 +110,20 @@ function ShowRulesPage() {
     []
   )
 
+  useEffect(() => {
+    if (succcess) {
+      const timer = setTimeout(() => setSuccess(false), 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [succcess])
+
   const canEdit = user?.role === 'Company'
   const fieldsDisabled = !isEditing
 
   return (
     <main className='main-content'>
       {error && <div className="alert alert-danger">{error}</div>}
+      {succcess && <div className="alert alert-success">Company Rules Updated Successfully!</div>}
 
       <h1>Company Rules</h1>
 
@@ -241,16 +252,16 @@ function ShowRulesPage() {
             </div>
 
             {canEdit && (
-                <div className="d-flex justify-content-center gap-2 mt-3">
-                  {!isEditing ? 
+              <div className="d-flex justify-content-center gap-2 mt-3">
+                {!isEditing ?
                   (
                     <Button type="button" variant="primary" size="sm" className="w-50" onClick={handleEditClick} >Edit</Button>
-                  ) : 
+                  ) :
                   (
                     <Button type="submit" variant="primary" size="sm" className="w-50" disabled={submitting} >{submitting ? "Saving..." : "Save"}</Button>
                   )
-                  }
-                </div>
+                }
+              </div>
             )}
           </Form>
         </div>
