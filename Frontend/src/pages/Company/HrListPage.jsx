@@ -17,7 +17,7 @@ function HrListPage() {
 
   const [error, setError] = useState("")
   const [submitting, setSubmitting] = useState(false)
-  const [succcess, setSuccess] = useState(false)
+  const [success, setSuccess] = useState(false)
 
   const [formData, setFormData] = useState({
     username: "",
@@ -135,16 +135,16 @@ function HrListPage() {
   )
 
   useEffect(() => {
-    if (succcess) {
+    if (success) {
       const timer = setTimeout(() => setSuccess(false), 3000)
       return () => clearTimeout(timer)
     }
-  }, [succcess])
+  }, [success])
 
   return (
     <main className='main-content'>
       {error && <div className="alert alert-danger">{error}</div>}
-      {succcess && <div className="alert alert-success">New HR Added Successfully!</div>}
+      {success && <div className="alert alert-success">New HR Added Successfully!</div>}
 
       <h1>HR List</h1>
 
