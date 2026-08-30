@@ -39,7 +39,7 @@ function HrNavBar() {
                   className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
                 >
                   <i className="bi bi-clock-history" />
-                  <span className="ms-2 d-none d-sm-inline">Punches</span>
+                  <span className="ms-2 d-none d-sm-inline">Upload Attendance</span>
                 </Nav.Link>
 
                 <Nav.Link

@@ -53,7 +53,7 @@ function App() {
         {/* HR Pages */}
         <Route element={<HrNavBar />}>
           <Route path='/dashboard' element={<ProtectedRoute role="HR"><DashboardPage/></ProtectedRoute>} />
-          <Route path='/punches' element={<ProtectedRoute role="HR"><UploadPunchPage /></ProtectedRoute>} />
+          <Route path='/upload-attendance' element={<ProtectedRoute role="HR"><UploadPunchPage /></ProtectedRoute>} />
           <Route path='/employees-records' element={<ProtectedRoute role="HR"><EmployeeRecordsPage /></ProtectedRoute>} />
           <Route path='/rules' element={<ProtectedRoute role="HR"><ShowRulesPage /></ProtectedRoute>} />
         </Route>
