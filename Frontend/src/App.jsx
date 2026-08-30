@@ -22,7 +22,6 @@ import HrListPage from "./pages/Company/HrListPage"
 import ShowRulesPage from "./pages/Rules/ShowRulesPage"
 
 import DashboardPage from "./pages/Records/DashboardPage"
-import UploadPunchPage from "./pages/Punch/UploadPunchesPage"
 import EmployeeRecordsPage from "./pages/Records/EmployeeRecordsPage"
 
 import PageNotFound from "./pages/PageNotFound"
@@ -53,7 +52,6 @@ function App() {
         {/* HR Pages */}
         <Route element={<HrNavBar />}>
           <Route path='/dashboard' element={<ProtectedRoute role="HR"><DashboardPage/></ProtectedRoute>} />
-          <Route path='/upload-attendance' element={<ProtectedRoute role="HR"><UploadPunchPage /></ProtectedRoute>} />
           <Route path='/employees-records' element={<ProtectedRoute role="HR"><EmployeeRecordsPage /></ProtectedRoute>} />
           <Route path='/rules' element={<ProtectedRoute role="HR"><ShowRulesPage /></ProtectedRoute>} />
         </Route>

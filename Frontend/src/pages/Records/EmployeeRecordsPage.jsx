@@ -2,15 +2,22 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 
 import { getAllCompanyRecords } from '../../services/recordService';
+import { uploadPunches, calculateData } from '../../services/punchService'
 
 import DataTable from 'react-data-table-component';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/esm/Button';
+import Row from 'react-bootstrap/esm/Row';
+import Col from 'react-bootstrap/esm/Col'
 
 import '../../index.css'
 
 function EmployeeRecordsPage() {
   const [error, setError] = useState("")
+  const [success, setSuccess] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [file, setFile] = useState(null)
 
   const columns = [
     {
@@ -25,7 +32,8 @@ function EmployeeRecordsPage() {
     },
     {
       name: "Worked Hours",
-      selector: row => row.workedHours
+      selector: row => row.workedHours,
+      sortable: true
     },
     {
       name: "Shortage in Minutes",
@@ -49,8 +57,8 @@ function EmployeeRecordsPage() {
                 <li key={i}>{note}</li>
               ))}
             </ul>
-          ) 
-          : <span>-</span>;
+          )
+            : <span>-</span>;
         }
 
         return <span>{row.notes}</span>;
@@ -111,6 +119,40 @@ function EmployeeRecordsPage() {
     setRecords(newData)
   }
 
+  async function handleSubmit(event) {
+    event.preventDefault()
+
+    if (!file) {
+      setError("Please select a file to upload.")
+      return
+    }
+
+    try {
+      setSubmitting(true)
+      setError("")
+      setSuccess(false)
+
+      const data = new FormData()
+      data.append("punchData", file)
+
+      await uploadPunches(data)
+      await calculateData()
+      await loadData()
+
+      setSuccess(true)
+      setFile(null)
+    }
+    catch (err) {
+      setError(err?.response?.data?.message);
+    }
+    finally {
+      setSubmitting(false)
+    }
+  }
+
+  function handleChange(event) {
+    setFile(event.target.files[0])
+  }
 
   useEffect(
     () => {
@@ -119,12 +161,42 @@ function EmployeeRecordsPage() {
     },
     []
   )
-  
+
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => setSuccess(false), 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [success])
+
   return (
     <main className='main-content'>
       {error && <div className="alert alert-danger">{error}</div>}
+      {success && <div className="alert alert-success">Calculation Complete Succesfully!</div>}
 
       <h1>Employees Records</h1>
+
+      <Card className="mb-4 shadow-sm">
+        <Card.Body>
+          <Card.Title as="h5" className="mb-3">Attendance</Card.Title>
+          <Form onSubmit={handleSubmit}>
+            <Form.Text className="d-block mb-2">Upload the file that contains the attendance punches (.xlsx only)</Form.Text>
+            <Row>
+              <Col md={4}>
+                <Form.Control
+                  type="file"
+                  name="punchData"
+                  accept=".xlsx"
+                  onChange={handleChange}
+                />
+              </Col>
+              <Col md={4} className="d-flex">
+                <Button type="submit" variant="primary" size="sm" className="w-50" disabled={submitting} >{submitting ? "Calculating..." : "Upload"}</Button>
+              </Col>
+            </Row>
+          </Form>
+        </Card.Body>
+      </Card>
 
       <Card className="shadow-sm">
         <Card.Body>
