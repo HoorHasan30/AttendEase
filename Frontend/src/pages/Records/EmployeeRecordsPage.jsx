@@ -19,16 +19,21 @@ function EmployeeRecordsPage() {
       sortable: true
     },
     {
+      name: "Date",
+      selector: row => row.punchRecord.date.split("T")[0],
+      sortable: true
+    },
+    {
       name: "Worked Hours",
       selector: row => row.workedHours
     },
     {
-      name: "Shortage by min",
+      name: "Shortage in Minutes",
       selector: row => row.shortage,
       sortable: true
     },
     {
-      name: "Overtime by min",
+      name: "Overtime in Minutes",
       selector: row => row.overtime,
       sortable: true
     },
