@@ -102,6 +102,10 @@ function ShowRulesPage() {
     }
   };
 
+  function handleCancel(){
+    setIsEditing(false)
+  }
+
   useEffect(
     () => {
       document.title = "Company Rules"
@@ -258,7 +262,11 @@ function ShowRulesPage() {
                     <Button type="button" variant="primary" size="sm" className="w-50" onClick={handleEditClick} >Edit</Button>
                   ) :
                   (
-                    <Button type="submit" variant="primary" size="sm" className="w-50" disabled={submitting} >{submitting ? "Saving..." : "Save"}</Button>
+                    <>
+                      <Button type="submit" variant="info" size="sm" active="true" className="w-25" onClick={handleCancel}>Cancel</Button>
+                      <Button type="submit" variant="primary" size="sm" className="w-25" disabled={submitting} >{submitting ? "Saving..." : "Save"}</Button>
+                    </>
+
                   )
                 }
               </div>
