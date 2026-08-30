@@ -9,12 +9,12 @@ async function setRules(formData){
     const response = await api.post('/rules/set-rules', formData)
 }
 
-async function updatesRules(formData){
+async function updateRules(formData){
     const response = await api.put('/rules/update-rules', formData)
 }
 
 export {
     getRules,
     setRules,
-    updatesRules
+    updateRules
 }
