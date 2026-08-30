@@ -9,24 +9,6 @@ import { Link } from 'react-router'
 
 import '../index.css'
 
-const FEATURES = [
-  {
-    icon: "bi-upload",
-    title: "Upload Punches",
-    text: "Import attendance files and process every clock-in and clock-out in one go.",
-  },
-  {
-    icon: "bi-sliders",
-    title: "Custom Company Rules",
-    text: "Define shift hours and late arrival allowances that match your own policy.",
-  },
-  {
-    icon: "bi-bar-chart-line",
-    title: "Dashboard & Reports",
-    text: "Track overtime and shortage trends by date range at a glance.",
-  },
-]
-
 function Homepage() {
   return (
     <div>
@@ -49,20 +31,47 @@ function Homepage() {
 
       <Container className="py-5">
         <Row className="g-4">
-          {FEATURES.map((feature) => (
-            <Col md={4} key={feature.title}>
-              <div
-                className="d-flex align-items-center justify-content-center bg-primary rounded mb-3"
-                style={{ width: "56px", height: "56px" }}
-              >
-                <i className={`bi ${feature.icon} text-white fs-4`}></i>
-              </div>
-              <h2 className="h5 fw-bold mb-2">{feature.title}</h2>
-              <p className="text-muted">{feature.text}</p>
-            </Col>
-          ))}
+          <Col md={4}>
+            <div
+              className="d-flex align-items-center justify-content-center bg-primary rounded mb-3"
+              style={{ width: "56px", height: "56px" }}
+            >
+              <i className="bi bi-upload text-white fs-4"></i>
+            </div>
+            <h2 className="h5 fw-bold mb-2">Upload Punches</h2>
+            <p className="text-muted">
+              Import attendance files and process every clock-in and clock-out in one go.
+            </p>
+          </Col>
+
+          <Col md={4}>
+            <div
+              className="d-flex align-items-center justify-content-center bg-primary rounded mb-3"
+              style={{ width: "56px", height: "56px" }}
+            >
+              <i className="bi bi-sliders text-white fs-4"></i>
+            </div>
+            <h2 className="h5 fw-bold mb-2">Custom Company Rules</h2>
+            <p className="text-muted">
+              Define shift hours and late arrival allowances that match your own policy.
+            </p>
+          </Col>
+
+          <Col md={4}>
+            <div
+              className="d-flex align-items-center justify-content-center bg-primary rounded mb-3"
+              style={{ width: "56px", height: "56px" }}
+            >
+              <i className="bi bi-bar-chart-line text-white fs-4"></i>
+            </div>
+            <h2 className="h5 fw-bold mb-2">Dashboard & Reports</h2>
+            <p className="text-muted">
+              Track overtime and shortage trends by date range at a glance.
+            </p>
+          </Col>
         </Row>
       </Container>
+
     </div>
   )
 }
