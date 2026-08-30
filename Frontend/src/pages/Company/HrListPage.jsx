@@ -126,6 +126,13 @@ function HrListPage() {
     }
   };
 
+  function handleClear(){
+    setFormData({
+      username: "",
+      password: ""
+    })
+  }
+
   useEffect(
     () => {
       document.title = "Company HR"
@@ -174,8 +181,9 @@ function HrListPage() {
                   required
                 />
               </Col>
-              <Col md={4} className="d-flex">
-                <Button type="submit" variant="primary" className="w-100" disabled={submitting} >
+              <Col md={4} className="d-flex gap-2">
+                <Button type="submit" variant="info" size="sm" active="true" className="w-25" onClick={handleClear}>Clear</Button>
+                <Button type="submit" variant="primary" className="w-25" disabled={submitting} >
                   {submitting ? "Adding..." : "Add"}
                 </Button>
               </Col>
