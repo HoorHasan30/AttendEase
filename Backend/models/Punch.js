@@ -4,7 +4,7 @@ const punchSchema = new mongoose.Schema(
     {
         company: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Compnay'
+            ref: 'Company'
         },
         employeeId: {
             type: String
