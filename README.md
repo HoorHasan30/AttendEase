@@ -4,6 +4,11 @@ HR Attendance System
 ## Overview
 A tool that reads employee fingerprint IN/OUT data, compares it against a standard company shift and attendance rules, and produces a payroll-ready shortage/overtime report, replacing a manual monthly Excel process.
 
+## Related Links
+
+- **Backend API:** [Deployed Backend URL](https://attendease-ue2t.onrender.com)
+- **Frontend Application:** Deployed Frontend URL
+
 ## Screenshots
 
 
