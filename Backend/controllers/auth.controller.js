@@ -202,11 +202,31 @@ async function getHrList(req, res){
   }
 }
 
+async function deleteHrAccount(req, res){
+  try{
+
+    const deletedUser = await User.findByIdAndDelete(req.params.id)
+
+    if(!deletedUser){
+      return res.status(404).json({ message: "There is no HR with this id" })
+    }
+
+    res.status(200).json({message: "HR Account deleted successfully"})
+
+  }
+  catch(err){
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+}
+
 module.exports = {
   registerCompany,
   registerHr,
   // signUp,
   signIn,
   verifyUser,
-  getHrList
+  getHrList,
+  deleteHrAccount
 };
