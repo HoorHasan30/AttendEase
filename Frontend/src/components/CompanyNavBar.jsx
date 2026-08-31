@@ -19,7 +19,7 @@ function CompanyNavBar() {
         <div className="sidebar">
 
           <div className="sidebar-brand">
-             <Image src="src/assets/lightNavLogo.png" className="sidebar-logo" rounded /> 
+             <Image src="/lightNavLogo.png" className="sidebar-logo" rounded /> 
           </div>
 
           <Nav className="flex-column">

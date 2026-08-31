@@ -154,7 +154,7 @@ function SignupPage() {
               <ProgressBar now={50} className="mb-4" style={{ height: "0.5rem" }} />
 
               <h3 className='d-flex flex-column justify-content-center align-items-center'> 
-                <Image src="src/assets/Logo.png" className="w-25 d-block mx-auto" style={{ margin: "0" }} rounded /> 
+                <Image src="/Logo.png" className="w-25 d-block mx-auto" style={{ margin: "0" }} rounded /> 
                 Create Company Account</h3>
 
               <FloatingLabel controlId="floatingCompanyName" label="Company Name" className="mb-3">

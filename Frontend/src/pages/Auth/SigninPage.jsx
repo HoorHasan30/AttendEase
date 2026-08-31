@@ -88,7 +88,7 @@ function SigninPage() {
         <div className="border rounded p-4" style={{ maxWidth: "40rem", width: "100%" }}>
           <Form onSubmit={handleSubmit}>
             <h3 className='d-flex flex-column justify-content-center align-items-center'> 
-              <Image src="src/assets/Logo.png" className="w-25 d-block mx-auto" style={{ margin: "0" }} rounded /> 
+              <Image src="/Logo.png" className="w-25 d-block mx-auto" style={{ margin: "0" }} rounded /> 
               Sign In</h3>
 
             <FloatingLabel controlId="floatingUsername" label="Username" className="mb-3">
