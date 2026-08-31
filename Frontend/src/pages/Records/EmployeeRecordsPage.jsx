@@ -11,6 +11,8 @@ import Button from 'react-bootstrap/esm/Button';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col'
 
+import * as XLSX from 'xlsx';
+
 import '../../index.css'
 
 function EmployeeRecordsPage() {
@@ -154,6 +156,31 @@ function EmployeeRecordsPage() {
     setFile(event.target.files[0])
   }
 
+  function handleExportExcel() {
+    if (records.length === 0) {
+      setError("No records to export!")
+      return
+    }
+
+    const exportData = records.map(row => ({
+      "Employee Id": row.punchRecord.employeeId,
+      "Date": row.punchRecord.date.split("T")[0],
+      "Worked Hours": row.workedHours,
+      "Shortage in Minutes": row.shortage,
+      "Overtime in Minutes": row.overtime,
+      "Notes": Array.isArray(row.notes) ? row.notes.join("; ") : (row.notes || "-")
+    }))
+
+    const worksheet = XLSX.utils.json_to_sheet(exportData)
+    const workbook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Employee Records")
+
+    const dateStr = new Date().toISOString().split("T")[0]
+    XLSX.writeFile(workbook, `EmployeeRecords_${dateStr}.xlsx`)
+  }
+
+
+
   useEffect(
     () => {
       document.title = "Emp Records"
@@ -200,15 +227,29 @@ function EmployeeRecordsPage() {
 
       <Card className="shadow-sm">
         <Card.Body>
-          <div className="d-flex justify-content-end align-items-center mb-3">
-            <Form.Control
-              type="text"
-              placeholder="Search by Employee Id..."
-              value={search}
-              onChange={handleFilter}
-              style={{ maxWidth: "16rem" }}
-            />
-          </div>
+          <Row>
+            <Col>
+              <div className="d-flex justify-content-strat align-items-center mb-3">
+                <Form.Control
+                  type="text"
+                  placeholder="Search by Employee Id..."
+                  value={search}
+                  onChange={handleFilter}
+                  style={{ maxWidth: "16rem" }}
+                />
+              </div>
+            </Col>
+            <Col md={4}>
+              <div className="d-flex justify-content-end align-items-center">
+                <Button type="submit" variant="info" onClick={handleExportExcel} className="w-50">
+                  <i class="bi bi-printer"/>
+                  <span className="ms-2 d-none d-sm-inline">Export as Excel</span>
+                </Button>
+              </div>
+            </Col>
+          </Row>
+
+
 
           <DataTable
             columns={columns}
