@@ -1,7 +1,9 @@
 import React from 'react'
 import { useEffect, useState } from "react";
 
-import { getHr, registerHr } from '../../services/authService'
+import { getHr, registerHr, deleteHr } from '../../services/authService'
+
+import Swal from 'sweetalert2'
 
 import DataTable from 'react-data-table-component';
 import Form from 'react-bootstrap/Form';
@@ -17,7 +19,7 @@ function HrListPage() {
 
   const [error, setError] = useState("")
   const [submitting, setSubmitting] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [successMsg, setSuccessMsg] = useState("")
 
   const [formData, setFormData] = useState({
     username: "",
@@ -40,6 +42,16 @@ function HrListPage() {
       name: "Created On",
       selector: row => row.createdAt.split("T")[0],
       sortable: true
+    },
+    {
+      name: "",
+      cell: row => (
+        <Button variant="danger" size="sm" onClick={() => handleDelete(row._id, row.username)}>
+          Delete
+        </Button>
+      ),
+      ignoreRowClick: true,
+      button: true,
     }
   ]
 
@@ -110,13 +122,13 @@ function HrListPage() {
     try {
       setSubmitting(true)
       setError("")
-      setSuccess(false)
+      setSuccessMsg("")
 
-      const newHr = await registerHr(formData)
+      await registerHr(formData)
       setFormData({ username: "", password: "" })
       await loadList()
 
-      setSuccess(true)
+      setSuccessMsg("New HR Added Successfully!")
     }
     catch (err) {
       setError(err?.response?.data?.message);
@@ -126,11 +138,38 @@ function HrListPage() {
     }
   };
 
-  function handleClear(){
+  function handleClear() {
     setFormData({
       username: "",
       password: ""
     })
+  }
+
+  async function handleDelete(id, username) {
+    const result = await Swal.fire({
+      title: "Delete this HR account?",
+      text: `This will permanently remove "${username}".`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "var(--bs-primary)",
+      cancelButtonColor: "var(--bs-info)",
+      confirmButtonText: "Yes, delete"
+    })
+
+    if (!result.isConfirmed) return
+
+    try {
+      setError("")
+      setSuccessMsg("")
+
+      await deleteHr(id)
+      await loadList()
+
+      setSuccessMsg("HR Account Deleted Successfully!")
+    }
+    catch (err) {
+      setError(err?.response?.data?.message);
+    }
   }
 
   useEffect(
@@ -142,16 +181,16 @@ function HrListPage() {
   )
 
   useEffect(() => {
-    if (success) {
-      const timer = setTimeout(() => setSuccess(false), 3000)
+    if (successMsg) {
+      const timer = setTimeout(() => setSuccessMsg(""), 3000)
       return () => clearTimeout(timer)
     }
-  }, [success])
+  }, [successMsg])
 
   return (
     <main className='main-content'>
       {error && <div className="alert alert-danger">{error}</div>}
-      {success && <div className="alert alert-success">New HR Added Successfully!</div>}
+      {successMsg && <div className="alert alert-success">{successMsg}</div>}
 
       <h1>HR List</h1>
 
@@ -182,7 +221,7 @@ function HrListPage() {
                 />
               </Col>
               <Col md={4} className="d-flex gap-2">
-                <Button type="submit" variant="info" size="sm" active="true" className="w-25" onClick={handleClear}>Clear</Button>
+                <Button type="button" variant="info" size="sm" className="w-25" onClick={handleClear}>Clear</Button>
                 <Button type="submit" variant="primary" className="w-25" disabled={submitting} >
                   {submitting ? "Adding..." : "Add"}
                 </Button>

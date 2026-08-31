@@ -248,9 +248,7 @@ function EmployeeRecordsPage() {
               </div>
             </Col>
           </Row>
-
-
-
+          
           <DataTable
             columns={columns}
             data={records}

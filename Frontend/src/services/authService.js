@@ -31,12 +31,18 @@ function logout(){
     localStorage.removeItem("token");
 }
 
+async function deleteHr(id){
+    const response = await api.delete(`/auth/delete-hr/${id}` )
+    return response.data
+}
+
 export {
   registerCompany,
   registerHr,
   signIn,
   getCurrentUser,
   logout,
-  getHr
+  getHr,
+  deleteHr
 };
 
