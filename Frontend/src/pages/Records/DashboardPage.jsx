@@ -161,8 +161,8 @@ function DashboardPage() {
                   data={{
                     labels: summary.trendChartData.map(d => d.date),
                     datasets: [
-                      { label: "Shortage", data: summary.trendChartData.map(d => d.shortage), borderColor: "#dc3545" },
-                      { label: "Overtime", data: summary.trendChartData.map(d => d.overtime), borderColor: "#198754" },
+                      { label: "Shortage", data: summary.trendChartData.map(d => d.shortage), borderColor: "#a13d3d" },
+                      { label: "Overtime", data: summary.trendChartData.map(d => d.overtime), borderColor: "#4f7a63" },
                     ],
                   }}
                 />
