@@ -48,6 +48,7 @@ A tool that reads employee fingerprint IN/OUT data, compares it against a standa
 | POST   | /auth/register-hr      | Company      | Register HR      |
 | POST   | /auth/sign-in          | Compnay / HR | Sign In          |
 | GET    | /auth/hr-list              | Company      | Get HR List      |
+| DELETE   | /auth/delete-hr/id            | Company      | Delete HR |
 
 
 ### EmployeeRecords
