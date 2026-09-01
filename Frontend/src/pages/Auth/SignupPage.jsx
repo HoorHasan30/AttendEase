@@ -216,7 +216,7 @@ function SignupPage() {
               <ProgressBar now={100} className="mb-4" style={{ height: "0.5rem" }} />
 
               <h3 className='d-flex flex-column justify-content-center align-items-center'> 
-                <Image src="src/assets/Logo.png" className="w-25 d-block mx-auto" style={{ margin: "0" }} rounded /> 
+                <Image src="/Logo.png" className="w-25 d-block mx-auto" style={{ margin: "0" }} rounded /> 
                 Set Attendance Rules</h3>
                 
               <Form.Text className="d-block mb-2">Working Hours - Use 24h Format Only</Form.Text>

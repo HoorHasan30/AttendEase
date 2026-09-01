@@ -10,6 +10,39 @@ A tool that reads employee fingerprint IN/OUT data, compares it against a standa
 - **Frontend Application:** Deployed Frontend URL
 
 ## Screenshots
+#### Home Page
+![Home Page](Screenshots/Home%20Page.png)
+
+#### Sign Up Page
+![Sign Up](Screenshots/SignUp1.png)
+![Sign Up](Screenshots/SignUp2.png)
+
+
+#### Sign In Page
+![Sign In](Screenshots/SignIn.png)
+
+
+### Company
+#### HR List Page
+![HR List](Screenshots/HR%20List.png)
+
+#### Company Rules
+![Show Company Rules](Screenshots/Company%20Rules.png)
+
+
+#### Edit Company Rules
+![Edit Company Rules](Screenshots/Edit%20Company%20Rules.png)
+
+
+### HR
+#### Dashboard Page
+![Dashboard](Screenshots/Dashboard.png)
+
+#### Employees Records Page
+![Employees Records](Screenshots/Employees%20Records.png)
+
+#### Company Rules
+![Show Company Rules](Screenshots/Company%20Rules%20-%20HR.png)
 
 
 ## Technologies Used
@@ -22,16 +55,17 @@ A tool that reads employee fingerprint IN/OUT data, compares it against a standa
 ### Company
 - As a Company, I want to register in the syetem
 - As a Company, I want to register my Hr team into the system
+- As a Company, I want to delete Hr account when I don't need it 
 - As a Company, I want to set & edit my attendance rules
 ### HR
 - As HR, I want to sign in into the system.
+- As HR, I want to see a dashnoard where I can filter by date & employee id.
 - As HR, I want to view employees records, filter by date range, and search by employee id.
-- As HR, I want to export ther ecords as a excel sheet.
+- As HR, I want to export the records as excel sheet.
 - As HR, I want to upload the biometric file.
 - As HR, I want to see a confirmation that the file was read and calculated correctly.
-- As HR, I want worked hours calculated automatically per employee per day.
+- As HR, I want to see the worked hours calculated automatically per employee per day.
 - As HR, I want to see shortage/overtime in minutes, per employee, per day.
-- As HR, I want to see a quick overview when I log in (employees, recent activity)
 
 
 ## Features
@@ -41,6 +75,8 @@ A tool that reads employee fingerprint IN/OUT data, compares it against a standa
 - Setting attendance rules
 - Edittig attendace rules
 - Add Hr Team
+- Delete HR Account
+- Dashboard with data summary with filter options
 - Upload biometric punch file (xlsx)
 - Auto-calculate shortage/overtime/worked hours per employee, per day, per payroll period accourding to the provided rules
 - Export records as excel sheet
