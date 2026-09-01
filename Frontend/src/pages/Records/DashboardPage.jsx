@@ -19,8 +19,8 @@ function DashboardPage() {
   const [error, setError] = useState("")
   const [submitting, setSubmitting] = useState(false)
 
-  const [formData, setFormData] = useState({ from: "", to: "" })
-  const { from, to } = formData
+  const [formData, setFormData] = useState({ from: "", to: "", empId: "" })
+  const { from, to, empId } = formData
 
   const [summary, setSummary] = useState(null)
 
@@ -96,7 +96,7 @@ function DashboardPage() {
           <Card.Title as="h5" className="mb-3">Filter By Date</Card.Title>
           <Form onSubmit={loadData}>
             <Row>
-              <Col md={4}>
+              <Col md={2}>
                 <Form.Text className="d-block mb-2">From</Form.Text>
                 <Form.Control
                   type="date"
@@ -106,7 +106,7 @@ function DashboardPage() {
                   required
                 />
               </Col>
-              <Col md={4}>
+              <Col md={2}>
                 <Form.Text className="d-block mb-2">To</Form.Text>
                 <Form.Control
                   type="date"
@@ -114,6 +114,16 @@ function DashboardPage() {
                   value={to}
                   onChange={handleChange}
                   required
+                />
+              </Col>
+              <Col md={4}>
+                <Form.Text className="d-block mb-2">Employee Id</Form.Text>
+                <Form.Control
+                  type="text"
+                  name="empId"
+                  value={empId}
+                  onChange={handleChange}
+                  placeholder='0000000'
                 />
               </Col>
               <Col md={4} className="d-flex align-items-end">

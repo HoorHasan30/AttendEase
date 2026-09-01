@@ -24,14 +24,56 @@ async function getAllCompanyRecords(req, res) {
 
 async function getDashboard(req, res) {
     try {
-        const { from, to } = req.body
+        const { from, to, empId } = req.body
 
-        if (!from || !to){
+        if (!from || !to) {
             return res.status(400).json({ message: "Both dates are required" })
         }
 
+        if (empId && from && to) {
+            // get punches filtered by the dates
+            const punches = await Punch.find({ company: req.user.company, date: { $gte: new Date(from), $lte: new Date(to) }, employeeId: empId })
+            const punchIds = punches.map(p => p._id)
+
+            // get records
+            const records = await EmployeeRecord.find({ punchRecord: { $in: punchIds } }).populate('punchRecord')
+
+
+            // collecting data
+            let totalShortage = 0
+            let totalOvertime = 0
+
+            // grouped by day(date)
+            const byDay = {}
+
+            records.forEach(r => {
+                totalShortage += r.shortage
+                totalOvertime += r.overtime
+
+                const recDate = r.punchRecord.date.toISOString().split('T')[0]
+
+                // if the day is not in the object
+                if (!byDay[recDate]) {
+                    byDay[recDate] = { date: recDate, shortage: 0, overtime: 0 }
+                }
+
+                byDay[recDate].shortage += r.shortage
+                byDay[recDate].overtime += r.overtime
+            })
+
+            const trendChartData = Object.values(byDay).sort((a, b) => a.date.localeCompare(b.date))
+
+            res.status(200).json({
+                totalEmployees: "-",
+                totalShortage,
+                totalOvertime,
+                trendChartData
+            })
+
+        }
+
         // get punches filtered by the dates
-        const punches = await Punch.find({ company: req.user.company, date: { $gte: new Date(from), $lte: new Date(to)} })
+        const punches = await Punch.find({ company: req.user.company, date: { $gte: new Date(from), $lte: new Date(to) } })
         const punchIds = punches.map(p => p._id)
 
         // get records
@@ -41,7 +83,7 @@ async function getDashboard(req, res) {
             company: req.user.company,
             date: { $gte: new Date(from), $lte: new Date(to) }
         })
-        
+
         // collecting data
         let totalShortage = 0
         let totalOvertime = 0
@@ -50,21 +92,21 @@ async function getDashboard(req, res) {
         const byDay = {}
 
 
-        records.forEach( r => {
+        records.forEach(r => {
             totalShortage += r.shortage
             totalOvertime += r.overtime
 
             const recDate = r.punchRecord.date.toISOString().split('T')[0]
 
             // if the day is not in the object
-            if(!byDay[recDate]){
+            if (!byDay[recDate]) {
                 byDay[recDate] = { date: recDate, shortage: 0, overtime: 0 }
             }
 
             byDay[recDate].shortage += r.shortage
             byDay[recDate].overtime += r.overtime
         })
-        
+
         const trendChartData = Object.values(byDay).sort((a, b) => a.date.localeCompare(b.date))
 
         res.status(200).json({
