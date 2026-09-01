@@ -221,6 +221,7 @@ function EmployeeRecordsPage() {
                 <Button type="submit" variant="primary" size="sm" className="w-50" disabled={submitting} >{submitting ? "Calculating..." : "Upload"}</Button>
               </Col>
             </Row>
+            <Form.Text className="d-block mt-2">Columns Expected: Employee ID, Date, In, Out</Form.Text>
           </Form>
         </Card.Body>
       </Card>
