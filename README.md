@@ -75,16 +75,16 @@ A tool that reads employee fingerprint IN/OUT data, compares it against a standa
 |--------|---------------------|--------------|-------------------------------|
 | GET    | /rules              | Company / HR | View Company Attendance Rules |
 | POST   | /rules/set-rules    | Company      | Set Attendance Rule           |
-| Put    | /rules/update-rules | Company      | Update Attendance Rules       |
+| PUT   | /rules/update-rules | Company      | Update Attendance Rules       |
 
 
 ## Frontend Routes
 ### Public
-| Method | Route               | Access       | Description                   |
-|--------|---------------------|--------------|-------------------------------|
-| GET    | /rules              | Company / HR | View Company Attendance Rules |
-| POST   | /rules/set-rules    | Company      | Set Attendance Rule           |
-| Put    | /rules/update-rules | Company      | Update Attendance Rules       |
+| Route          | Page           | Access                  |
+|----------------|----------------|-------------------------|
+| /       | Home Page   | Public |
+| /sign-up | SignUp Page | Public |
+| /sign-up | SignIn Page | Public |
 
 ### Company
 | Route          | Page           | Access                  |
