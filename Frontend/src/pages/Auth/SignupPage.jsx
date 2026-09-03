@@ -43,8 +43,8 @@ function SignupPage() {
     lateArrivalsAllowed: "",
     lateArrivalDuration: "",
     missedPunches: "",
-    countEarlyArraival: "",
-    countEarlyLeave: "",
+    countEarlyArraival: false,
+    countEarlyLeave: false,
     workingDays: []
   })
 
